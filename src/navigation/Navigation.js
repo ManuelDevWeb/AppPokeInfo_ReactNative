@@ -4,10 +4,10 @@ import { Image } from "react-native";
 // Icons
 import Icon from "react-native-vector-icons/FontAwesome5";
 
-// Screens
-import { Account } from "../screens/Account";
-import { PokeList } from "../screens/PokeList";
-import { Favorite } from "../screens/Favorite";
+// Stacks Navigation
+import { PokeListNavigation } from "./PokeListNavigation";
+import { FavoriteNavigation } from "./FavoriteNavigation";
+import { AccountNavigation } from "./AccountNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +25,7 @@ const Navigation = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarActiveTintColor: "tomato",
         tabBarInactiveTintColor: "gray",
         tabBarIcon: ({ focused, color, size }) => {
@@ -48,7 +49,7 @@ const Navigation = () => {
     >
       <Tab.Screen
         name="Favorite"
-        component={Favorite}
+        component={FavoriteNavigation}
         options={{
           // Title button
           tabBarLabel: "Favoritos",
@@ -61,7 +62,7 @@ const Navigation = () => {
       />
       <Tab.Screen
         name="Pokelist"
-        component={PokeList}
+        component={PokeListNavigation}
         options={{
           // Title button
           tabBarLabel: "",
@@ -71,7 +72,7 @@ const Navigation = () => {
       />
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={AccountNavigation}
         options={{
           // Title button
           tabBarLabel: "Mi Cuenta",
