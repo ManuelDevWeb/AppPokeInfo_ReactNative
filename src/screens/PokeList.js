@@ -4,7 +4,10 @@ import { View, Text } from "react-native";
 // Functions API
 import { getPokemonsApi, getPokemonDetailsByUrlApi } from "../api/pokemon";
 
-const PokeList = ({ navigation }) => {
+// Components
+import { PokemonList } from "../components/PokemonList";
+
+const PokeList = () => {
   const [pokemons, setPokemons] = useState([]);
 
   // Fetch data
@@ -21,7 +24,7 @@ const PokeList = ({ navigation }) => {
             name: pokemonInfo.name,
             type: pokemonInfo.types[0].type.name,
             order: pokemonInfo.order,
-            imagen: pokemonInfo.sprites.other["official-artwork"].front_default,
+            image: pokemonInfo.sprites.other["official-artwork"].front_default,
           };
         })
       );
@@ -40,7 +43,7 @@ const PokeList = ({ navigation }) => {
 
   return (
     <View>
-      <Text>PokeList</Text>
+      <PokemonList pokemons={pokemons} />
     </View>
   );
 };

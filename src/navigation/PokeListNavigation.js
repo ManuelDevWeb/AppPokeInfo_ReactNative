@@ -11,8 +11,16 @@ const Stack = createNativeStackNavigator();
 const PokeListNavigation = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="PokeListStack" component={PokeList} />
-      <Stack.Screen name="Pokemon" component={Pokemon} />
+      <Stack.Screen
+        name="PokeListStack"
+        component={PokeList}
+        options={{ title: "", headerTransparent: true }}
+      />
+      <Stack.Screen
+        name="Pokemon"
+        component={Pokemon}
+        options={{ title: "Pokemon", headerTitleAlign: "center" }}
+      />
     </Stack.Navigator>
   );
 };
