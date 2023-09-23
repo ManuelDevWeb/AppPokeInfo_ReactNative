@@ -4,11 +4,17 @@ import axios from "axios";
 import { API_HOST } from "../utils/constants";
 
 // Función para obtener los pokemons
-export const getPokemonsApi = async () => {
+export const getPokemonsApi = async (endpointNext) => {
   try {
-    const URL = `${API_HOST}/pokemon?limit=20&offset=0`;
+    let URL;
 
-    const { data } = await axios.get(URL);
+    if (endpointNext === null) {
+      URL = `${API_HOST}/pokemon?limit=20&offset=0`;
+    } else {
+      URL = endpointNext;
+    }
+
+    const { data } = await axios.get(endpointNext || URL);
 
     return data;
   } catch (error) {

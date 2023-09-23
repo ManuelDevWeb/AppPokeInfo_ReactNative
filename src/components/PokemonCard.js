@@ -30,9 +30,7 @@ const PokemonCard = ({ pokemon }) => {
       <View style={styles.card}>
         <View style={styles.spacing}>
           <View style={bgStylesCard}>
-            <Text style={styles.number}>
-              #{`${pokemon.order}`.padStart(3, 0)}
-            </Text>
+            <Text style={styles.number}>#{`${id}`.padStart(3, 0)}</Text>
             <Text style={styles.title}>{capitalize(name)}</Text>
             <Image source={{ uri: image }} style={styles.image} />
           </View>

@@ -9,11 +9,17 @@ import { PokemonList } from "../components/PokemonList";
 
 const PokeList = () => {
   const [pokemons, setPokemons] = useState([]);
+  const [nextUrl, setNextUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Fetch data
   const loadPokemons = async () => {
     try {
-      const dataPokemons = await getPokemonsApi();
+      setLoading(true);
+
+      const dataPokemons = await getPokemonsApi(nextUrl);
+
+      setNextUrl(dataPokemons.next);
 
       const pokemonsArray = await Promise.all(
         dataPokemons.results.map(async (pokemon) => {
@@ -33,6 +39,8 @@ const PokeList = () => {
       setPokemons([...pokemons, ...pokemonsArray]);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,7 +51,12 @@ const PokeList = () => {
 
   return (
     <View>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList
+        pokemons={pokemons}
+        loadPokemons={loadPokemons}
+        isNext={nextUrl}
+        isLoading={loading}
+      />
     </View>
   );
 };
