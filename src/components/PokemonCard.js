@@ -5,6 +5,9 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+// Lodash (Array functions)
 import { capitalize } from "lodash";
 
 // Utils
@@ -12,6 +15,8 @@ import { getColorByPokemonType } from "../utils/getColorByPokemonType";
 
 const PokemonCard = ({ pokemon }) => {
   const { id, image, name, order, type } = pokemon;
+
+  const navigation = useNavigation();
 
   // Tomamos los estilos definidos en el stylesheet y agregamos el color de fondo dependiendo del tipo de pokemon
   const bgStylesCard = {
@@ -21,7 +26,8 @@ const PokemonCard = ({ pokemon }) => {
 
   // Funcion para navegar a la vista de pokemon
   const goToPokemon = () => {
-    console.log("Go to pokemon", name);
+    // Pasamos el nombre de la vista y los parametros que queremos enviar
+    navigation.navigate("Pokemon", { id: id });
   };
 
   return (

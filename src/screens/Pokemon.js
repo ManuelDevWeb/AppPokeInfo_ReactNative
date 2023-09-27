@@ -1,10 +1,77 @@
-import { View, Text } from "react-native";
+import { useState, useEffect } from "react";
+import { ScrollView } from "react-native";
 
-const Pokemon = () => {
+// Icons
+import Icon from "react-native-vector-icons/FontAwesome5";
+
+// Functions API
+import { getPokemonDetailsByIdApi } from "../api/pokemon";
+
+// Components
+import { Header } from "../components/Pokemon/Header";
+import { Type } from "../components/Pokemon/Type";
+import { Stats } from "../components/Pokemon/Stats";
+
+const Pokemon = (props) => {
+  // console.log("Pokemon", props);
+  const {
+    navigation,
+    route: { params },
+  } = props;
+
+  const [pokemon, setPokemon] = useState(null);
+
+  // Se ejecuta cada que cambia el valor de los params y navigation
+  useEffect(() => {
+    // Modificamos la navegacion (Navigation solo llega cuando se trata de un screen)
+    navigation.setOptions({
+      headerRight: () => null,
+      headerLeft: () => (
+        <Icon
+          name="arrow-left"
+          size={20}
+          color="#fff"
+          style={{ marginLeft: 15 }}
+          onPress={
+            // Lo devolvemos a la vista anterior
+            navigation.goBack
+          }
+        />
+      ),
+    });
+  }, [navigation, params]);
+
+  // Feth data
+  const loadDetailsPokeom = async (id) => {
+    try {
+      const data = await getPokemonDetailsByIdApi(id);
+
+      setPokemon(data);
+    } catch (error) {
+      console.log(error);
+      // Lo devolvemos a la vista anterior
+      navigation.goBack();
+    }
+  };
+
+  // Se ejecuta cada que cambia el valor de los params
+  useEffect(() => {
+    loadDetailsPokeom(params.id);
+  }, [params]);
+
+  if (!pokemon) return null;
+
   return (
-    <View>
-      <Text>Estamos en un Pokemon</Text>
-    </View>
+    <ScrollView>
+      <Header
+        name={pokemon.name}
+        order={pokemon.order}
+        image={pokemon.sprites.other["official-artwork"].front_default}
+        type={pokemon.types[0].type.name}
+      />
+      <Type types={pokemon.types} />
+      <Stats stats={pokemon.stats} type={pokemon.types[0].type.name} />
+    </ScrollView>
   );
 };
 

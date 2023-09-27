@@ -19,7 +19,7 @@ const PokeListNavigation = () => {
       <Stack.Screen
         name="Pokemon"
         component={Pokemon}
-        options={{ title: "Pokemon", headerTitleAlign: "center" }}
+        options={{ title: "", headerTransparent: true }}
       />
     </Stack.Navigator>
   );

@@ -28,7 +28,7 @@ const PokemonList = ({ pokemons, loadPokemons, isNext, isLoading }) => {
       renderItem={({ item }) => <PokemonCard pokemon={item} />}
       // Styles
       contentContainerStyle={styles.flatListContentContainer}
-      // Funcion que se dispara al final de la lista y un delay de 0.1
+      // Funcion que se dispara al hacer scroll hasta el final de la lista y un delay de 0.1
       onEndReached={!isLoading && isNext && loadMore}
       onEndReachedThreshold={0.1}
       // Loader en el footer
@@ -50,7 +50,7 @@ const PokemonList = ({ pokemons, loadPokemons, isNext, isLoading }) => {
 const styles = StyleSheet.create({
   flatListContentContainer: {
     paddingHorizontal: 5,
-    marginTop: Platform.OS === "android" ? 30 : 0,
+    marginTop: Platform.OS === "android" ? 30 : 30,
   },
   spinner: {
     marginTop: 20,

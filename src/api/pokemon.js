@@ -32,3 +32,16 @@ export const getPokemonDetailsByUrlApi = async (url) => {
     throw error;
   }
 };
+
+// Funcion para obtener la información de un pokemon
+export const getPokemonDetailsByIdApi = async (id) => {
+  try {
+    const URL = `${API_HOST}/pokemon/${id}`;
+
+    const { data } = await axios.get(URL);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
