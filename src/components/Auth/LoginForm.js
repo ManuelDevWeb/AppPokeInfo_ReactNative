@@ -12,11 +12,17 @@ import { useFormik } from "formik";
 // Yup
 import * as Yup from "yup";
 
+// Custom Hooks
+import { useAuth } from "../../hooks/useAuth";
+
 // Utils
 import { user, userDetails } from "../../utils/userDB";
 
 const LoginForm = () => {
   const [error, setError] = useState(null);
+
+  // Custom hook para obtener los valores (states) del contexto AuthContext
+  const { login } = useAuth();
 
   const formik = useFormik({
     // Valores iniciales
@@ -32,8 +38,7 @@ const LoginForm = () => {
         setError("Usuario o contraseña incorrectos");
         console.log("Usuario o contraseña incorrectos");
       } else {
-        console.log("Usuario logueado");
-        console.log(userDetails);
+        login(userDetails);
       }
     },
   });
