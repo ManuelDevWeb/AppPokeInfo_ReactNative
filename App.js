@@ -1,5 +1,3 @@
-import { StyleSheet, Text, View } from "react-native";
-
 // React Navigation
 import { NavigationContainer } from "@react-navigation/native";
 // Tab Navigation
