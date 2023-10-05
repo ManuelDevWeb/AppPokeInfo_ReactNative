@@ -1,9 +1,12 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 
+// Function to add favorites
+import { addPokemonFavoriteApi } from "../../api/favorite";
+
 const Favorite = ({ id }) => {
   // Function to add or remove from favorites
-  const handleFavorite = () => {
-    console.log("Add or remove from favorites", id);
+  const handleFavorite = async () => {
+    await addPokemonFavoriteApi(id);
   };
 
   return (
