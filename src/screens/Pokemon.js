@@ -11,6 +11,10 @@ import { getPokemonDetailsByIdApi } from "../api/pokemon";
 import { Header } from "../components/Pokemon/Header";
 import { Type } from "../components/Pokemon/Type";
 import { Stats } from "../components/Pokemon/Stats";
+import { Favorite } from "../components/Pokemon/Favorite";
+
+// Custom Hook
+import { useAuth } from "../hooks/useAuth";
 
 const Pokemon = (props) => {
   // console.log("Pokemon", props);
@@ -21,11 +25,13 @@ const Pokemon = (props) => {
 
   const [pokemon, setPokemon] = useState(null);
 
+  const { auth } = useAuth();
+
   // Se ejecuta cada que cambia el valor de los params y navigation
   useEffect(() => {
     // Modificamos la navegacion (Navigation solo llega cuando se trata de un screen)
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => auth && <Favorite id={pokemon?.id} />,
       headerLeft: () => (
         <Icon
           name="arrow-left"
@@ -39,7 +45,7 @@ const Pokemon = (props) => {
         />
       ),
     });
-  }, [navigation, params]);
+  }, [navigation, params, pokemon]);
 
   // Feth data
   const loadDetailsPokeom = async (id) => {
