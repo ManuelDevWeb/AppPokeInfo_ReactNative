@@ -25,7 +25,13 @@ const Pokemon = (props) => {
 
   const [pokemon, setPokemon] = useState(null);
 
+  // Custom hook para obtener los valores (states) del contexto AuthContext
   const { auth } = useAuth();
+
+  // Se ejecuta cada que cambia el valor de los params
+  useEffect(() => {
+    loadDetailsPokeom(params.id);
+  }, [params]);
 
   // Se ejecuta cada que cambia el valor de los params y navigation
   useEffect(() => {
@@ -59,11 +65,6 @@ const Pokemon = (props) => {
       navigation.goBack();
     }
   };
-
-  // Se ejecuta cada que cambia el valor de los params
-  useEffect(() => {
-    loadDetailsPokeom(params.id);
-  }, [params]);
 
   if (!pokemon) return null;
 

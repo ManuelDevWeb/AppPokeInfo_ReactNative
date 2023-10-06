@@ -16,6 +16,7 @@ const PokeListNavigation = () => {
         component={PokeList}
         options={{ title: "", headerTransparent: true }}
       />
+      {/* La pagina previa en pokemon (Pokelist) es el listado de pokemos */}
       <Stack.Screen
         name="Pokemon"
         component={Pokemon}
