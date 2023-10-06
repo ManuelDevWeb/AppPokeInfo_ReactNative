@@ -1,11 +1,32 @@
 import { StyleSheet, View, Text, Button } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+
+// Lodash (Array functions)
+import { size } from "lodash";
+
+// Function to get favorites
+import { getPokemonsFavoritesApi } from "../../api/favorite";
 
 // Custom Hooks
 import { useAuth } from "../../hooks/useAuth";
 
 const UserDetails = () => {
+  const [totalFavorites, setTotalFavorites] = useState(0);
+
   // Custom hook para obtener los valores (states) del contexto AuthContext
   const { auth, logout } = useAuth();
+
+  // Se usa focus effect ya que en movil la screen no se desmonta. Cuando cambiamos de screen y volvemos a ella cambia es el "focus"
+  useFocusEffect(
+    useCallback(() => {
+      const getCountFavorites = async () => {
+        const response = await getPokemonsFavoritesApi();
+        setTotalFavorites(size(response));
+      };
+      getCountFavorites();
+    }, [])
+  );
 
   return (
     <View style={styles.content}>
@@ -19,7 +40,10 @@ const UserDetails = () => {
         <ItemMenu title="Nombre" text={auth.firstName} />
         <ItemMenu title="Username" text={auth.username} />
         <ItemMenu title="Email" text={auth.email} />
-        <ItemMenu title="Total Favoritos" text={`0 Pokemones`} />
+        <ItemMenu
+          title="Total Favoritos"
+          text={`${totalFavorites} Pokemones`}
+        />
       </View>
       <View style={styles.btnButton}>
         <Button title="Descontectarse" onPress={logout} />

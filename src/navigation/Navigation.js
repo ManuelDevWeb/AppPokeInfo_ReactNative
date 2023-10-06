@@ -24,6 +24,7 @@ function renderPokeball() {
 const Navigation = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Pokelist"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: "tomato",
